@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="cashMaster:war exploded">
+    <output-path>$PROJECT_DIR$/target/cashMaster</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="cashMaster" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="F:\Workspaces\Java\cashMaster\target/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="cashMaster/web/Web" />
+    </root>
+  </artifact>
+</component>
