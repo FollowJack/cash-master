@@ -1,13 +1,15 @@
 package rest;
 
 import model.dtos.CategoryDto;
+import repository.CategoryRepository;
 
 import javax.ejb.Stateless;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.inject.Inject;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.util.List;
 
 /**
@@ -15,43 +17,51 @@ import java.util.List;
  */
 @Path("/category")
 @Stateless
-@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+@Produces({MediaType.APPLICATION_JSON})
+@Consumes({MediaType.APPLICATION_JSON})
 public class CategoryRestService {
 
-    private ArrayList<CategoryDto> categories = fillExampleCategories();
-
-    private ArrayList<CategoryDto> fillExampleCategories() {
-
-        CategoryDto category1 = new CategoryDto();
-        category1.setId(1);
-        category1.setName("Bla");
-
-        CategoryDto category2 = new CategoryDto();
-        category2.setId(2);
-        category2.setName("Bla2");
-
-        CategoryDto category3 = new CategoryDto();
-        category3.setId(3);
-        category3.setName("Bla3");
-
-        ArrayList<CategoryDto> result = new ArrayList<>();
-        result.add(category1);
-        result.add(category2);
-        result.add(category3);
-
-        return result;
-    }
+    @Inject
+    private CategoryRepository _categoryRepository;
+    @Context
+    private UriInfo uriInfo;
 
     @GET
-    public List<CategoryDto> get(){
-        return categories;
+    public List<CategoryDto> get() {
+        return _categoryRepository.get();
     }
 
-/*    @GET
-    public CategoryDto get(long id){
-
-        CategoryDto result = categories.get((int) id);
-
+    @Path("/{id}")
+    @GET
+    public CategoryDto get(@PathParam("id") long id) {
+        CategoryDto result = _categoryRepository.get(id);
         return result;
-    }*/
+    }
+
+    @Path("/{id}")
+    @DELETE
+    public void delete(@PathParam("id") long id) {
+        _categoryRepository.delete(id);
+    }
+
+    @POST
+    public CategoryDto create(CategoryDto categoryDto) {
+        if (categoryDto == null)
+            throw new BadRequestException();
+
+        categoryDto = _categoryRepository.create(categoryDto);
+
+        return categoryDto;
+    }
+
+
+    @PUT
+    public Response update(CategoryDto categoryDto) {
+        if (categoryDto == null)
+            throw new BadRequestException();
+
+        _categoryRepository.update(categoryDto);
+
+        return Response.ok().build();
+    }
 }
