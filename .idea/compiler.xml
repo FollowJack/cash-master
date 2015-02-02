@@ -22,11 +22,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="cashMaster" />
+        <module name="rest" />
+        <module name="web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="cashMaster" target="1.7" />
+      <module name="rest" target="1.7" />
+      <module name="web" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

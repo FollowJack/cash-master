@@ -5,7 +5,11 @@
     <groupId>de.followJack</groupId>
     <artifactId>cashMaster</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <modules>
+        <module>rest</module>
+        <module>web</module>
+    </modules>
+    <packaging>pom</packaging>
 
     <dependencies>
         <dependency>

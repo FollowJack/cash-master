@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="web:war">
+    <output-path>$PROJECT_DIR$/web/target</output-path>
+    <root id="archive" name="cashMaster.war">
+      <element id="module-output" name="rest" />
+      <element id="module-output" name="web" />
+    </root>
+  </artifact>
+</component>
