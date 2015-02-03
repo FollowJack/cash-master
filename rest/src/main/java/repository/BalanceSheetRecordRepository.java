@@ -22,7 +22,7 @@ public class BalanceSheetRecordRepository implements IBalanceSheetRecordReposito
     }
 
     @Override
-    public List<BalanceSheetRecordDto> Get(AccountDto account, Date startTime, Date endTime) {
+    public List<BalanceSheetRecordDto> get(AccountDto account, Date startTime, Date endTime) {
         List<BalanceSheetRecordDto> result = new ArrayList<>();
         //filter
         for (BalanceSheetRecordDto record : balanceSheetRecords) {
@@ -36,5 +36,10 @@ public class BalanceSheetRecordRepository implements IBalanceSheetRecordReposito
         }
 
         return result;
+    }
+
+    @Override
+    public List<BalanceSheetRecordDto> get() {
+        return balanceSheetRecords;
     }
 }

@@ -7,9 +7,11 @@ import java.util.Date;
  */
 public class BalanceSheetRecordDto {
 
+    private long id;
     private String name;
     private double transferAmount;
     private Date targetMonth;
+    private Date executionDate;
     private Date createdOn;
     private Date modifiedOn;
 
@@ -85,5 +87,21 @@ public class BalanceSheetRecordDto {
 
     public void setTargetMonth(Date targetMonth) {
         this.targetMonth = targetMonth;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setExecutionDate(Date executionDate) {
+        this.executionDate = executionDate;
+    }
+
+    public Date getExecutionDate() {
+        return executionDate;
     }
 }

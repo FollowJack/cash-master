@@ -11,8 +11,7 @@ import java.util.ArrayList;
 @ApplicationScoped
 public class CategoryRepository {
 
-    private ArrayList<CategoryDto> categories = fillExampleCategories();
-
+    private ArrayList<CategoryDto> categories = new ArrayList<>();
 
     public ArrayList<CategoryDto> get() {
         return categories;
@@ -43,33 +42,4 @@ public class CategoryRepository {
         int index =  ((int) category.getId())-1;
         categories.set(index, category);
     }
-
-
-    private ArrayList<CategoryDto> fillExampleCategories() {
-
-        CategoryDto category1 = new CategoryDto();
-        category1.setId(1);
-        category1.setName("Living expenses");
-
-        CategoryDto category2 = new CategoryDto();
-        category2.setId(2);
-        category2.setName("Basic food");
-
-        CategoryDto category3 = new CategoryDto();
-        category3.setId(3);
-        category3.setName("Canteen food");
-
-        CategoryDto category4 = new CategoryDto();
-        category4.setId(4);
-        category4.setName("Fun food");
-
-        ArrayList<CategoryDto> result = new ArrayList<>();
-        result.add(category1);
-        result.add(category2);
-        result.add(category3);
-        result.add(category4);
-
-        return result;
-    }
-
 }

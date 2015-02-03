@@ -33,7 +33,7 @@ public class StatisticServiceAccount implements IStatisticServiceAccount {
         }
 
         //get records
-        List<BalanceSheetRecordDto> records = _balanceSheetRecordService.Get(account, startTime, endTime);
+        List<BalanceSheetRecordDto> records = _balanceSheetRecordService.get(account, startTime, endTime);
 
         //calculate sum
         double balanceSum = calculateSum(records, account);

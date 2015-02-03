@@ -1,10 +1,12 @@
 package services.rest;
 
 import model.dtos.AccountDto;
+import model.dtos.BalanceSheetRecordDto;
 import model.dtos.CategoryDto;
 import model.dtos.TransactionDto;
 import repository.CategoryRepository;
 import repository.IAccountRepository;
+import repository.IBalanceSheetRecordRepository;
 import services.transfer.ITransferService;
 
 import javax.ejb.Stateless;
@@ -14,11 +16,12 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.util.List;
 
 /**
  * Created by Deniel on 30.01.2015.
  */
-@Path("/transfer")
+@Path("/transaction")
 @Stateless
 @Produces({MediaType.APPLICATION_JSON})
 @Consumes({MediaType.APPLICATION_JSON})
@@ -27,11 +30,18 @@ public class TransactionRestService {
     @Inject
     private IAccountRepository _accountRepository;
     @Inject
-    private ITransferService _transferService;
-    @Inject
     private CategoryRepository _categoryRepository;
+    @Inject
+    private IBalanceSheetRecordRepository _balanceSheetRecordRepository;
+    @Inject
+    private ITransferService _transferService;
     @Context
     private UriInfo uriInfo;
+
+    @GET
+    public List<BalanceSheetRecordDto> get(){
+        return _balanceSheetRecordRepository.get();
+    }
 
     @POST
     public TransactionDto create(TransactionDto transaction) {
@@ -40,7 +50,7 @@ public class TransactionRestService {
             throw new BadRequestException();
 
         //get source object
-        AccountDto target = _accountRepository.get(transaction.getTargetId());
+        AccountDto target = _accountRepository.get(transaction.getAccountTargetId());
 
         //get target object
         AccountDto source = _accountRepository.get(transaction.getAccountSourceId());
@@ -49,7 +59,7 @@ public class TransactionRestService {
         CategoryDto category = _categoryRepository.get(transaction.getCategoryName());
 
         //transfer
-        _transferService.transfer(target,source,category,transaction.getAmount(),transaction.getMessage());
+        _transferService.transfer(target,source,category,transaction.getAmount(),transaction.getTargetMonth(),transaction.getExecutionDate(),transaction.getMessage());
 
         return transaction;
     }

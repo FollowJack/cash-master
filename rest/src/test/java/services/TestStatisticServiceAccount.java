@@ -12,6 +12,7 @@ import services.transfer.ITransferService;
 import services.transfer.TransferService;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -34,9 +35,9 @@ public class TestStatisticServiceAccount {
         wallet = TransferFactory.getWallet(500);
         // Arrange - create test records
         ITransferService transferService = new TransferService();
-        record1 = transferService.transfer(wallet, TransferFactory.getBank(1000), TransferFactory.getSavingCategory(), 500, "").returnValue;
-        record2 = transferService.transfer(wallet, TransferFactory.getBank(1000), TransferFactory.getSavingCategory(), 750, "").returnValue;
-        record3 = transferService.transfer(wallet, TransferFactory.getBank(1000), TransferFactory.getSavingCategory(), -750, "").returnValue;
+        record1 = transferService.transfer(wallet, TransferFactory.getBank(1000), TransferFactory.getSavingCategory(), 500,new Date(), new Date(), "").returnValue;
+        record2 = transferService.transfer(wallet, TransferFactory.getBank(1000), TransferFactory.getSavingCategory(), 750,new Date(), new Date(), "").returnValue;
+        record3 = transferService.transfer(wallet, TransferFactory.getBank(1000), TransferFactory.getSavingCategory(), -750,new Date(), new Date(), "").returnValue;
     }
 
     @Test

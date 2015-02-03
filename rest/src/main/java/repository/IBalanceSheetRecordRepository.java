@@ -12,5 +12,7 @@ import java.util.List;
 public interface IBalanceSheetRecordRepository {
     void save(BalanceSheetRecordDto record);
 
-    List<BalanceSheetRecordDto> Get(AccountDto account, Date startTime, Date endTime);
+    List<BalanceSheetRecordDto> get(AccountDto account, Date startTime, Date endTime);
+
+    List<BalanceSheetRecordDto> get();
 }

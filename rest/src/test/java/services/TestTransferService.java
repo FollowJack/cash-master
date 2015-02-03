@@ -10,6 +10,8 @@ import org.junit.Test;
 import services.transfer.ITransferService;
 import services.transfer.TransferService;
 
+import java.util.Date;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -44,8 +46,8 @@ public class TestTransferService {
     @Test
     public void TestTransfer() {
         // Act - transfer from bank to wallet to savings
-        Result result1 = transferService.transfer(wallet, bank, category, 50, "");
-        Result result2 = transferService.transfer(savings, wallet, category, 50, "");
+        Result result1 = transferService.transfer(wallet, bank, category, 50,new Date(), new Date(), "");
+        Result result2 = transferService.transfer(savings, wallet, category, 50,new Date(),new Date() , "");
 
         // Assert - Account balance
         assertEquals(((BalanceSheetRecordDto) result1.returnValue).getSource().getBalance(), 50,0.1);
@@ -59,8 +61,8 @@ public class TestTransferService {
     public void TestTransfer_WithEmptyParameters() {
 
         // Act - transfer from bank to wallet to savings
-        Result result1 = transferService.transfer(null, null, category, 50, "");
-        Result result2 = transferService.transfer(null, null, category, 50, "");
+        Result result1 = transferService.transfer(null, null, category, 50,new Date(),new Date() , "");
+        Result result2 = transferService.transfer(null, null, category, 50,new Date(),new Date() , "");
 
         // Assert - Aocount balance
         assertEquals(true, result1.hasError);
@@ -71,8 +73,8 @@ public class TestTransferService {
     public void TestTransfer_SourceIsResetWhenTargetIsNull() {
 
         // Act - transfer from bank to wallet to savings
-        Result result1 = transferService.transfer(null, bank, category, 50, "");
-        Result result2 = transferService.transfer(null, wallet, category, 50, "");
+        Result result1 = transferService.transfer(null, bank, category, 50,new Date(),new Date() , "");
+        Result result2 = transferService.transfer(null, wallet, category, 50,new Date(),new Date() , "");
 
         // Assert - Aocount balance
         assertEquals(bank.getBalance(), 100,0.1);

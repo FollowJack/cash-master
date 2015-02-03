@@ -4,7 +4,6 @@ import model.dtos.AccountDto;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,34 +12,7 @@ import java.util.List;
 @ApplicationScoped
 public class AccountRepository implements IAccountRepository {
 
-    private ArrayList<AccountDto> accounts = fillExampleAccounts();
-
-    private ArrayList<AccountDto> fillExampleAccounts() {
-        AccountDto account1 = new AccountDto();
-        account1.setId(1);
-        account1.setBalance(0);
-        account1.setCreateOn(new Date());
-        account1.setName("Living expenses");
-
-        AccountDto account2= new AccountDto();
-        account2.setId(2);
-        account2.setBalance(0);
-        account2.setCreateOn(new Date());
-        account2.setName("Basic food");
-
-        AccountDto account3 = new AccountDto();
-        account3.setId(3);
-        account3.setBalance(0);
-        account3.setCreateOn(new Date());
-        account3.setName("Canteen food");
-
-        ArrayList<AccountDto> result = new ArrayList<>();
-        result.add(account1);
-        result.add(account2);
-        result.add(account3);
-
-        return result;
-    }
+    private ArrayList<AccountDto> accounts = new ArrayList<>();
 
     @Override
     public List<AccountDto> get() {
