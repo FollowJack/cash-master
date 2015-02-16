@@ -54,21 +54,29 @@ public class TransferService implements ITransferService {
         //decrease sourcce
         AccountDto source = balanceSheetRecord.getSource();
         if (source != null) {
-            double sourceBalance = source.getBalance() - balanceSheetRecord.getTransferAmount();
-            source.setBalance(sourceBalance);
+            Double balanceBefore = source.getBalance();
+            Double balanceAfter = source.getBalance() - balanceSheetRecord.getTransferAmount();
+            source.setBalance(balanceAfter);
             _accountRepository.update(source);
+
+            balanceSheetRecord.setBalanceBeforeTransactionSource(balanceBefore);
+            balanceSheetRecord.setBalanceAfterTransactionSource(balanceAfter);
         }
 
         //increase target
         AccountDto target = balanceSheetRecord.getTarget();
         if (target != null) {
-            double targetBalance = target.getBalance() + balanceSheetRecord.getTransferAmount();
-            target.setBalance(targetBalance);
+            Double balanceBefore = target.getBalance();
+            Double balanceAfter = target.getBalance() + balanceSheetRecord.getTransferAmount();
+            target.setBalance(balanceAfter);
             _accountRepository.update(target);
+
+            balanceSheetRecord.setBalanceBeforeTransactionTarget(balanceBefore);
+            balanceSheetRecord.setBalanceAfterTransactionTarget(balanceAfter);
         }
 
         //save record
-        _balanceSheetRecordRepository.save(balanceSheetRecord);
+        _balanceSheetRecordRepository.create(balanceSheetRecord);
     }
 
     private BalanceSheetRecordDto CreateBalanceSheetRecord(AccountDto target, AccountDto source, CategoryDto category, double balance, Date targetMonth,Date executionDate,String message) {

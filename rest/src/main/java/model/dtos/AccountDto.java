@@ -1,5 +1,7 @@
 package model.dtos;
 
+import model.entities.Account;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,18 +14,41 @@ public class AccountDto {
     private long id;
     private String name;
     private double balance;
+    private String glyphIcon;
     private Date createOn;
     private Date modifiedOn;
 
-    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "source")
-    private List<BalanceSheetRecordDto> sourceRecord;
-    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "target")
-    private List<BalanceSheetRecordDto> targetRecord;
+    private List<BalanceSheetRecordDto> records;
 
     public AccountDto() {
-        sourceRecord = new ArrayList<>();
-        targetRecord = new ArrayList<>();
+        records = new ArrayList<>();
     }
+
+
+    public AccountDto(long id, String name, double balance,String glyphIcon) {
+        this.id = id;
+        this.name = name;
+        this.balance = balance;
+        this.glyphIcon = glyphIcon;
+    }
+
+    public AccountDto(Account entity) {
+        this.id = entity.getId();
+        this.name = entity.getName();
+        this.balance = entity.getBalance();
+        this.glyphIcon = entity.getGlyphIcon();
+
+    }
+
+    public void updateSource(Account entity) {
+        entity.setCreateOn(this.getCreateOn());
+        entity.setBalance(this.getBalance());
+        entity.setName(this.getName());
+        entity.setModifiedOn(this.getModifiedOn());
+        entity.setGlyphIcon(this.getGlyphIcon());
+    }
+
+
 
 
     public String getName() {
@@ -64,5 +89,22 @@ public class AccountDto {
 
     public void setModifiedOn(Date modifiedOn) {
         this.modifiedOn = modifiedOn;
+    }
+
+
+    public String getGlyphIcon() {
+        return glyphIcon;
+    }
+
+    public void setGlyphIcon(String glyphIcon) {
+        this.glyphIcon = glyphIcon;
+    }
+
+    public List<BalanceSheetRecordDto> getRecords() {
+        return records;
+    }
+
+    public void setRecords(List<BalanceSheetRecordDto> records) {
+        this.records = records;
     }
 }

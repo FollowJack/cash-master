@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="lib/css/template.css" type="text/css"/>
     <link rel="stylesheet" href="lib/external/bootstrap/logo-nav.css" type="text/css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
+    <script src="lib/external/googleChartApi/jsapi.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        google.load("visualization", "1", {packages:["piechart", "corechart", "geomap"]});
+    </script>
     <script src="lib/external/bootstrap/bootstrap.js" type="text/javascript"></script>
 
     <script src="lib/external/angularJs/angular.js" type="text/javascript"></script>
@@ -31,7 +35,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a href="#" class="navbar-brand">
-                    <img src="lib/img/smurf_logo.png" alt="" height="50"/>
+                    <img src="lib/img/money.png" alt="" height="50"/>
                 </a>
 
             </div>
@@ -39,19 +43,21 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#/transaction">Transactions</a>
+                        <a href="#/transfer">Transactions</a>
+                    </li>
+                    <li>
+                        <a href="#/accounts">Accounts</a>
+                    </li>
+                    <li>
+                        <a href="#/categories">Categories</a>
                     </li>
                     <li>
                         <a href="#/statistic">Statistics</a>
                     </li>
-                    <!--
-                    <li>
-                        <a href="/shop/user/profile.xhtml">Profil</a>
-                    </li>-->
                 </ul>
-                <div align="right" style="">
-                    <a href value="shop/j_spring_security_logout">logout</a> <!--${pageContext.request.contextPath} -->
-                </div>
+                <!--<div align="right" style="">
+                    <a href value="shop/j_spring_security_logout">logout</a> <!--${pageContext.request.contextPath}
+                </div>-->
             </div>
             <!-- /.navbar-collapse -->
         </div>
@@ -76,11 +82,14 @@
 
 <!-- services -->
 <script type="text/javascript" src="lib/js/services/accountService.js"></script>
-<script type="text/javascript" src="lib/js/services/transactionService.js"></script>
+<script type="text/javascript" src="lib/js/services/recordService.js"></script>
 <script type="text/javascript" src="lib/js/services/categoryService.js"></script>
+<script type="text/javascript" src="lib/js/services/statisticService.js"></script>
 <!-- controller -->
 <script type="text/javascript" src="lib/js/controllers/accountController.js"></script>
-<script type="text/javascript" src="lib/js/controllers/transactionController.js"></script>
+<script type="text/javascript" src="lib/js/controllers/transferController.js"></script>
+<script type="text/javascript" src="lib/js/controllers/statisticController.js"></script>
+<script type="text/javascript" src="lib/js/controllers/categoryController.js"></script>
 
 
 </body>

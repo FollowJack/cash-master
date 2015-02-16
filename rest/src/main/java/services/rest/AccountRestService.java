@@ -8,14 +8,13 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
 
 /**
  * Created by Deniel on 21.01.2015.
  */
-@Path("/account")
+@Path("/accounts")
 @Stateless
 @Produces({MediaType.APPLICATION_JSON})
 @Consumes({MediaType.APPLICATION_JSON})
@@ -26,6 +25,7 @@ public class AccountRestService {
     @Context
     private UriInfo uriInfo;
 
+
     @GET
     public List<AccountDto> get() {
         return _accountRepository.get();
@@ -34,34 +34,7 @@ public class AccountRestService {
     @Path("/{id}")
     @GET
     public AccountDto get(@PathParam("id") long id) {
-        AccountDto result = _accountRepository.get(id);
+        AccountDto result = _accountRepository.getDto(id);
         return result;
-    }
-
-    @Path("/{id}")
-    @DELETE
-    public void delete(@PathParam("id") long id) {
-        _accountRepository.delete(id);
-    }
-
-    @POST
-    public AccountDto create(AccountDto account) {
-        if (account == null)
-            throw new BadRequestException();
-
-        account  = _accountRepository.create(account);
-
-        return account;
-    }
-
-
-    @PUT
-    public Response update(AccountDto account) {
-        if (account == null)
-            throw new BadRequestException();
-
-        _accountRepository.update(account);
-
-        return Response.ok().build();
     }
 }

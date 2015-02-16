@@ -1,0 +1,92 @@
+<div class="row">
+
+    <div class="col-sm-9">
+
+        <div data-ng-repeat="account in data.accounts" class="col-sm-6">
+
+            <div class="panel panel-default">
+                <div class="panel-heading"><h3><span class="{{account.glyphIcon}}" aria-hidden="true"></span>
+                    {{account.name}}</h3>
+                    Balance: {{account.balance}}
+                </div>
+
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="#/accounts/{{account.id}}">Show transactions</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <span class="col-sm-6">Month:</span>
+                    <span class="col-sm-6">Year:</span>
+                </div>
+                <div class="row">
+                    <select class="col-sm-6" ng-model="selectedMonth"
+                            ng-options="month.month for month in months"></select>
+                    <select class="col-sm-6" ng-model="selectedYear" ng-options="year.year for year in years"></select>
+                </div>
+            </div>
+
+            <ul class="list-group">
+                <li class="list-group-item">
+                        <a href="" id="getMonth" class="btn btn-default" style="display: block; width: 100%;"
+                               ng-click="showMonth()">Show Month</a>
+                </li>
+                <li class="list-group-item">
+                        <a href="" type="button" id="getYear" class="btn btn-default" style="display: block; width: 100%;"
+                               ng-click="showYear()">Show Year</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <h3>Account: {{data.account.name}}</h3>
+    <h4>Balance: {{data.account.balance}}</h4>
+
+</div>
+<div class="row">
+    <div class="table-responsive">
+        <table class="table table-hover table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Target month</th>
+                <th>Execution date</th>
+                <th>Name</th>
+                <th>Source</th>
+                <th>Target</th>
+                <th>Category</th>
+                <th>Transfer amount</th>
+                <th>Source before</th>
+                <th>Source after</th>
+                <th>Target before</th>
+                <th>Target after</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-ng-repeat="record in data.records">
+                <td>{{record.id}}</td>
+                <td>{{record.targetMonth | date:'MMM.yyyy'}}</td>
+                <td>{{record.executionDate | date:'dd.MM.yyyy'}}</td>
+                <td>{{record.name}}</td>
+                <td>{{record.source.name}}</td>
+                <td>{{record.target.name}}</td>
+                <td>{{record.category.name}}</td>
+                <td class="text-right">{{record.transferAmount}}</td>
+                <td class="text-right">{{record.balanceBeforeTransactionSource}}</td>
+                <td class="text-right">{{record.balanceAfterTransactionSource}}</td>
+                <td class="text-right">{{record.balanceBeforeTransactionTarget}}</td>
+                <td class="text-right">{{record.balanceAfterTransactionTarget}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

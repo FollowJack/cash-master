@@ -1,31 +1,22 @@
 package model.dtos;
 
-import model.entities.Category;
-
 /**
  * Created by Deniel on 21.01.2015.
  */
-public class CategoryDto {
+public class CategoryWithRecordsDto {
 
     private long id;
     private String name;
+    private Double expenses;
 
-    public CategoryDto() {
+    public CategoryWithRecordsDto() {
 
     }
 
-    public CategoryDto(long id, String name) {
+    public CategoryWithRecordsDto(long id, String name,Double expenses) {
         this.id = id;
         this.name = name;
-    }
-
-    public CategoryDto(Category entity) {
-        this.id = entity.getId();
-        this.name = entity.getName();
-    }
-
-    public void updateSource(Category entity) {
-        entity.setName(this.getName());
+        this.expenses = expenses;
     }
 
     public String getName() {
@@ -42,5 +33,13 @@ public class CategoryDto {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Double getExpenses() {
+        return expenses;
+    }
+
+    public void setExpenses(Double expenses) {
+        this.expenses = expenses;
     }
 }

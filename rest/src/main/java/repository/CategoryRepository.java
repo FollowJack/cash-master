@@ -1,9 +1,13 @@
 package repository;
 
 import model.dtos.CategoryDto;
+import model.entities.Category;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Deniel on 26.01.2015.
@@ -11,35 +15,50 @@ import java.util.ArrayList;
 @ApplicationScoped
 public class CategoryRepository {
 
-    private ArrayList<CategoryDto> categories = new ArrayList<>();
+    @PersistenceContext
+    private EntityManager em;
 
     public ArrayList<CategoryDto> get() {
-        return categories;
+        List<CategoryDto> result = em.createQuery("select new model.dtos.CategoryDto(c.id,c.name) from Category c", CategoryDto.class).getResultList();
+        return (ArrayList<CategoryDto>) result;
     }
-    public CategoryDto get(long id) {
-        CategoryDto result = categories.get((int) id-1);
+
+    public Category get(long id) {
+        Category category = em.find(Category.class, id);
+        if(category == null)
+            return null;
+        return category;
+    }
+
+    public CategoryDto getDto(long id) {
+        Category category = get(id);
+        if(category == null)
+            return null;
+        CategoryDto result = new CategoryDto(category);
         return result;
     }
 
-    public CategoryDto get(String name) {
-        for (CategoryDto category : categories){
-            if(category.getName().equals(name))
-                return category;
-        }
-
-        return null;
-    }
-
     public void delete(long id) {
-        categories.remove((int) id - 1);
+        Category entity = get(id);
+        if(entity == null)
+            return;
+        em.remove(entity);
     }
-    public CategoryDto create(CategoryDto categoryDto) {
-        categoryDto.setId(categories.size()+1);
-        categories.add(categoryDto);
-        return categoryDto;
+
+    public Category create(CategoryDto categoryDto) {
+        Category result = new Category();
+        categoryDto.updateSource(result);
+        em.persist(result);
+        result = get(result.getId());
+        return result;
     }
+
     public void update(CategoryDto category) {
-        int index =  ((int) category.getId())-1;
-        categories.set(index, category);
+        if(category == null)
+            return;
+        Category entity = get(category.getId());
+
+        category.updateSource(entity);
+        em.merge(entity);
     }
 }

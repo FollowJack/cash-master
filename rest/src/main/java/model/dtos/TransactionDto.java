@@ -9,7 +9,7 @@ public class TransactionDto {
 
     private long accountSourceId;
     private long accountTargetId;
-    private String categoryName;
+    private long categoryId;
     private double amount;
     private Date targetMonth;
     private Date executionDate;
@@ -34,14 +34,6 @@ public class TransactionDto {
 
     public void setAccountTargetId(long accountTargetId) {
         this.accountTargetId = accountTargetId;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
     }
 
     public double getAmount() {
@@ -82,5 +74,13 @@ public class TransactionDto {
 
     public void setExecutionDate(Date executionDate) {
         this.executionDate = executionDate;
+    }
+
+    public long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(long categoryId) {
+        this.categoryId = categoryId;
     }
 }

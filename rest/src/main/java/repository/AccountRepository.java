@@ -1,50 +1,72 @@
 package repository;
 
 import model.dtos.AccountDto;
+import model.dtos.BalanceSheetRecordDto;
+import model.entities.Account;
 
-import javax.enterprise.context.ApplicationScoped;
-import java.util.ArrayList;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
  * Created by Deniel on 28.01.2015.
  */
-@ApplicationScoped
+@Stateless
 public class AccountRepository implements IAccountRepository {
 
-    private ArrayList<AccountDto> accounts = new ArrayList<>();
+    @PersistenceContext
+    private EntityManager em;
+
+    @Inject
+    private IBalanceSheetRecordRepository _balanceSheetRecordRepository;
 
     @Override
     public List<AccountDto> get() {
-        return accounts;
-    }
 
-    @Override
-    public AccountDto get(long id) {
-        AccountDto result = accounts.get((int) id-1);
+        List<AccountDto> result = em.createQuery(
+                "select new model.dtos.AccountDto(a.id, a.name, a.balance,a.glyphIcon) " +
+                        "from Account a", AccountDto.class)
+                .getResultList();
+
         return result;
     }
 
     @Override
-    public AccountDto create(AccountDto account) {
-        account.setId(accounts.size() + 1);
-        accounts.add(account);
-        return account;
+    public Account get(long id) {
+
+        Account result = em.find(Account.class, id);
+        return result;
     }
 
     @Override
-    public void save(AccountDto account) {
-        accounts.add(account);
+    public AccountDto getDto(long id) {
+        Account entity = get(id);
+
+        if(entity == null)
+            return null;
+
+        AccountDto result = new AccountDto(entity);
+
+        return result;
+    }
+
+    @Override
+    public Account create(AccountDto account) {
+        Account result = new Account();
+        account.updateSource(result);
+        em.persist(result);
+        result = get(result.getId());
+        return result;
     }
 
     @Override
     public void update(AccountDto account) {
-        int index =  ((int) account.getId())-1;
-        accounts.set(index, account);
-    }
-
-    @Override
-    public void delete(long id) {
-        accounts.remove((int) id - 1);
+        if(account == null)
+            return;
+        Account entity = get(account.getId());
+        account.updateSource(entity);
+        em.merge(entity);
     }
 }

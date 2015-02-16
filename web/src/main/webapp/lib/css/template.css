@@ -38,10 +38,16 @@ body {
 
 #wrap > .container {
     padding: 60px;
-    background: ghostwhite;
     border-radius: 15px;
     opacity: 0.98;
 }
+.smart-container{
+    background: ghostwhite;
+    padding: 15px;
+    border-radius: 15px;
+    opacity: 0.98;
+}
+
 .container .credit {
     margin: 20px 0;
     text-align: center;
@@ -49,4 +55,22 @@ body {
 
 code {
     font-size: 80%;
+}
+
+.margin-bottom-sm{
+    margin-bottom: 6px;
+}
+.margin-bottom{
+    margin-bottom: 12px;
+}
+.margin-bottom-lg{
+    margin-bottom: 24px;
+}
+
+.padding-left{
+    padding-left: 12px;
+}
+
+.padding-right{
+    padding-right: 12px;
 }
