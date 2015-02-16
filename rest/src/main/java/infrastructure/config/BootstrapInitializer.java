@@ -25,32 +25,13 @@ public class BootstrapInitializer {
     ITransferService _transferService;
 
     @PostConstruct
-    void init() {
+    private void init() {
         if (_accountRepository.get().isEmpty())
             createAccounts();
         if (_categoryRepository.get().isEmpty())
             createCategories();
-
-        //doExampleTransactions();
     }
 
-    /*
-        //ToDo: Only for test reasons --> so delete it in productiv
-        private void doExampleTransactions() {
-            AccountDto bank = _accountRepository.get(1);
-            AccountDto wallet = _accountRepository.get(2);
-            AccountDto savings = _accountRepository.get(3);
-
-            CategoryDto canteeenCategory = _categoryRepository.get(3);
-            CategoryDto saveCategory = _categoryRepository.get(8);
-            CategoryDto transferCategory = _categoryRepository.get(9);
-
-            _transferService.transfer(savings, null, saveCategory, 200, DateHelper.getMonthDate("02.2015"), DateHelper.getDayDate("04.02.2015"), "Initial");
-            _transferService.transfer(bank, null, saveCategory, 640, DateHelper.getMonthDate("02.2014"), DateHelper.getDayDate("04.02.2015"), "Initial");
-            _transferService.transfer(wallet, bank, transferCategory, 200, DateHelper.getMonthDate("02.2015"), DateHelper.getDayDate("04.02.2015"), "transfer");
-            _transferService.transfer(null, wallet, canteeenCategory, 5, DateHelper.getMonthDate("02.2015"), DateHelper.getDayDate("04.02.2015"), "Mensa Heidelberg");
-        }
-    */
     private void createCategories() {
         CategoryDto category1 = new CategoryDto();
         category1.setName("Living expenses");
