@@ -52,6 +52,9 @@ public class DateHelper {
     }
 
     public static Date addMonth(Date original, int months){
+        if(original == null)
+            return null;
+
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(original);
         calendar.add(Calendar.MONTH, months);

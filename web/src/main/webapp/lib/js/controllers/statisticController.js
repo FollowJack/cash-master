@@ -1,9 +1,15 @@
-cashMaster.controller('StatisticController', function ($scope, $window, $routeParams, Account,StatisticService) {
-    $scope.view = [];
-    $scope.view.chartDiv = document.getElementById('chart_div');
+cashMaster.controller('StatisticController', function ($scope, $window, $routeParams, Account,StatisticService, HtmlElementFactory) {
+    function initialViewData() {
+        $scope.view = [];
+        $scope.view.chartDiv = HtmlElementFactory.categoryChart();
+    }
+    function initialExternalData() {
+        $scope.data = [];
+        $scope.data.accounts = Account.query();
+    }
 
-    $scope.data = [];
-    $scope.data.accounts = Account.query();
+    initialExternalData();
+    initialViewData();
 
-    StatisticService.draw(chartDiv);
+    StatisticService.draw($scope.view.chartDiv);
 });

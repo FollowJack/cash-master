@@ -85,42 +85,7 @@
 </form>
 
 <div class="row">
-    <div class="table-responsive">
-        <table class="table table-hover table-striped">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Target month</th>
-                <th>Execution date</th>
-                <th>Name</th>
-                <th>Source</th>
-                <th>Target</th>
-                <th>Category</th>
-                <th>Transfer amount</th>
-                <th>Source before</th>
-                <th>Source after</th>
-                <th>Target before</th>
-                <th>Target after</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr data-ng-repeat="record in data.records">
-                <td>{{record.id}}</td>
-                <td>{{record.targetMonth | date:'MMM.yyyy'}}</td>
-                <td>{{record.executionDate | date:'dd.MM.yyyy'}}</td>
-                <td>{{record.name}}</td>
-                <td>{{record.source.name}}</td>
-                <td>{{record.target.name}}</td>
-                <td>{{record.category.name}}</td>
-                <td class="text-right">{{record.transferAmount}}</td>
-                <td class="text-right">{{record.balanceBeforeTransactionSource}}</td>
-                <td class="text-right">{{record.balanceAfterTransactionSource}}</td>
-                <td class="text-right">{{record.balanceBeforeTransactionTarget}}</td>
-                <td class="text-right">{{record.balanceAfterTransactionTarget}}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+    <div ng-include="'views/balanceSheetRecord/_recordsList.html'"></div>
 </div>
 
 

@@ -38,27 +38,11 @@ public class CategoryRepository {
         return result;
     }
 
-    public void delete(long id) {
-        Category entity = get(id);
-        if(entity == null)
-            return;
-        em.remove(entity);
-    }
-
     public Category create(CategoryDto categoryDto) {
         Category result = new Category();
         categoryDto.updateSource(result);
         em.persist(result);
         result = get(result.getId());
         return result;
-    }
-
-    public void update(CategoryDto category) {
-        if(category == null)
-            return;
-        Category entity = get(category.getId());
-
-        category.updateSource(entity);
-        em.merge(entity);
     }
 }

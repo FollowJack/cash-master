@@ -1,11 +1,22 @@
 cashMaster.controller('TransferController', function ($scope, $window, $routeParams, Record, Account, Category) {
-    $scope.data = {};
+    function initialExternalData() {
+        $scope.data = {};
+        $scope.data.accounts = Account.query();
+        $scope.data.categories = Category.query();
+        $scope.data.recordsData = Record.query(function (records) {
+            $scope.data.records = records;
+        });
+    }
 
-    $scope.data.accounts = Account.query();
-    $scope.data.categories = Category.query();
-    $scope.data.recordsData = Record.query(function (records) {
-        $scope.data.records = records;
-    });
+    function getNewTransaction() {
+        var result = new Record();
+
+        result.targetMonth = new Date().getTime();
+        result.executionDate = new Date().getTime();
+        return result;
+    }
+
+    initialExternalData();
 
     $scope.transfer = function () {
         $scope.data.transaction.$save(function () {
@@ -16,16 +27,8 @@ cashMaster.controller('TransferController', function ($scope, $window, $routePar
     };
 
     $scope.clearInputFields = function () {
-        $scope.data.transaction = $scope.getNewTransaction();
+        $scope.data.transaction = getNewTransaction();
     };
 
-    $scope.getNewTransaction = function () {
-        var result = new Record();
-
-        result.targetMonth = new Date().getTime();
-        result.executionDate = new Date().getTime();
-        return result;
-    };
-
-    $scope.data.transaction = $scope.getNewTransaction();
+    $scope.data.transaction = getNewTransaction();
 });
